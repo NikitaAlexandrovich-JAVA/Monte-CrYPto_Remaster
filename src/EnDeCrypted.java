@@ -1,20 +1,22 @@
 
 
-import javax.swing.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.concurrent.ScheduledExecutorService;
+
 
 public abstract class EnDeCrypted {
 
     private Alphabet alphabet = new Alphabet();
-    private String resultText;
 
     public void crypted(int key, String pathRead, String pathSave) {
-        String resultText="";
+        String resultText = "";
         String editableText = readTextFromFile(pathRead);
+
+        if (editableText==null){return;}
+
         char symbol;
 
         for (int i = 0; i < editableText.length(); i++) {
@@ -23,15 +25,15 @@ public abstract class EnDeCrypted {
 
             if (checkSymbol(alphabet, symbol)) {
 
-                resultText = resultText+searchNextIndexSymbol(symbol, key);
-            }else {
+                resultText = resultText + searchNextIndexSymbol(symbol, key);
+            } else {
                 resultText = resultText + symbol;
             }
 
         }
 
         writeTextToFile(resultText, pathSave);
-        System.out.println("\nРЕЗУЛЬТАТ: записан в ->" + pathSave + "\n\n"+resultText+"\n");
+
 
     }
 
@@ -39,22 +41,33 @@ public abstract class EnDeCrypted {
 
         try {
             String editableText = Files.readString(Path.of(pathRead));
-    ;
+            ;
             return editableText;
         } catch (Exception e) {
             System.out.println("\n" + Messages.ERROR_NOT_FILE + pathRead + "\n");
 
-          return null;
+            return null;
         }
     }
 
     private void writeTextToFile(String writeText, String pathSave) {
-
         try {
-            Files.writeString(Path.of(pathSave), writeText,StandardOpenOption.CREATE);
+            Path save = Path.of(pathSave);
+
+            if (!Files.exists(save)) {
+
+                Files.createDirectory(save.getParent());
+            }
+
+            Files.writeString(Path.of(pathSave), writeText, StandardOpenOption.CREATE);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\nРЕЗУЛЬТАТ: записан в ->" + pathSave + "\n\n" + writeText + "\n");
+
+
     }
 
     private boolean checkSymbol(Alphabet alphabet, char symbol) {
@@ -62,7 +75,7 @@ public abstract class EnDeCrypted {
     }
 
 
-    private char searchNextIndexSymbol( char symbol, int key) {
+    private char searchNextIndexSymbol(char symbol, int key) {
 
         int nextIndexSymbol = alphabet.indexOf(symbol) + key;
 
@@ -74,7 +87,7 @@ public abstract class EnDeCrypted {
 
         if (nextIndexSymbol < 0) {
             while (nextIndexSymbol < 0) {
-                nextIndexSymbol= nextIndexSymbol+ alphabet.size();
+                nextIndexSymbol = nextIndexSymbol + alphabet.size();
             }
         }
 
