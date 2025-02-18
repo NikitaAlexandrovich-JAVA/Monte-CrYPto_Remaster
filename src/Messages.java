@@ -13,12 +13,13 @@ public class Messages {
             ПРЕДУПРЕЖДЕНИЕ: -  функция №3 не совсем законна!!! )
             """;
 
-    public final static String END_MESSAGE = "СООБЩЕНИЕ: - программа завершена";
+    public final static String END_MESSAGE = "СООБЩЕНИЕ: - программа завершена....";
 
-    public final static String INPUT_KEY_MESSAGE = "Введите ключ %s:";
+    public final static String INPUT_KEY_MESSAGE = "Введите ключ %s:\n";
 
     public final static String ERROR_NOT_COMMAND_MESSAGE = "ОШИБКА : <<нет такой команды>>";
 
+    public final static String ERROR_NOT_FILE = "ОШИБКА : <<отсутствует файл по указанному пути>> -> ";
 
 }
 
