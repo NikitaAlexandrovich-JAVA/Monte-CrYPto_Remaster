@@ -9,11 +9,11 @@ import java.nio.file.StandardOpenOption;
 
 public abstract class EnDeCrypted {
 
-    private Alphabet alphabet = new Alphabet();
+    public Alphabet alphabet = new Alphabet();
 
     public void crypted(int key, String pathRead, String pathSave) {
         String resultText = "";
-        String editableText = readTextFromFile(pathRead);
+        String editableText = readTextFromFile(Path.of(pathRead));
 
         if (editableText==null){return;}
 
@@ -23,24 +23,24 @@ public abstract class EnDeCrypted {
 
             symbol = editableText.charAt(i);
 
-            if (checkSymbol(alphabet, symbol)) {
+            if (checkSymbol(symbol)) {
 
-                resultText = resultText + searchNextIndexSymbol(symbol, key);
+                resultText = resultText + searchNextSymbol(symbol, key);
             } else {
                 resultText = resultText + symbol;
             }
 
         }
 
-        writeTextToFile(resultText, pathSave);
+        writeTextToFile(resultText, Path.of(pathSave));
 
 
     }
 
-    private String readTextFromFile(String pathRead) {
+    public String readTextFromFile(Path pathRead) {
 
         try {
-            String editableText = Files.readString(Path.of(pathRead));
+            String editableText = Files.readString(pathRead);
             ;
             return editableText;
         } catch (Exception e) {
@@ -50,32 +50,36 @@ public abstract class EnDeCrypted {
         }
     }
 
-    private void writeTextToFile(String writeText, String pathSave) {
+    public void writeTextToFile(String writeText, Path pathSave) {
         try {
-            Path save = Path.of(pathSave);
 
-            if (!Files.exists(save)) {
 
-                Files.createDirectory(save.getParent());
+            if (!Files.exists(pathSave.getParent())) {
+
+                Files.createDirectory(pathSave.getParent());
+                Files.writeString(pathSave, writeText,StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                System.out.println("\nРЕЗУЛЬТАТ: записан в ->" + pathSave + "\n\n" + writeText + "\n");
+
+            }else {
+                Files.writeString(pathSave, writeText,StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                System.out.println("\nРЕЗУЛЬТАТ: записан в ->" + pathSave + "\n\n" + writeText + "\n");
             }
-
-            Files.writeString(Path.of(pathSave), writeText, StandardOpenOption.CREATE);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("\nРЕЗУЛЬТАТ: записан в ->" + pathSave + "\n\n" + writeText + "\n");
+
 
 
     }
 
-    private boolean checkSymbol(Alphabet alphabet, char symbol) {
+    public boolean checkSymbol(char symbol) {
         return alphabet.contains(symbol);
     }
 
 
-    private char searchNextIndexSymbol(char symbol, int key) {
+    public char searchNextSymbol(char symbol, int key) {
 
         int nextIndexSymbol = alphabet.indexOf(symbol) + key;
 

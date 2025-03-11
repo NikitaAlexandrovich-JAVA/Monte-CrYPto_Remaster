@@ -33,7 +33,7 @@ public class Management {
                     new Decrypted().crypted(scannerKey.nextInt(),pathEncryptedFile, pathDecryptedFile);
                 }
                 case "3" -> {
-
+                    new MasterKey(pathEncryptedFile,pathDecryptedFile).searchKey();
                 }
                 case "exit" -> System.out.println(Messages.END_MESSAGE);
 
