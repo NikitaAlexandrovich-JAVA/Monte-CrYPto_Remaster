@@ -12,6 +12,7 @@ public class Alphabet {
     private ArrayList<Character> completionAlphabetArrayList(ArrayList<Character> alphabetArrayList) {
         for (char symbol = 'A'; symbol <= 'Z'; symbol++) {
             alphabetArrayList.add(symbol);
+
         }
         for (char symbol = 'a'; symbol <= 'z'; symbol++) {
             alphabetArrayList.add(symbol);
@@ -27,7 +28,6 @@ public class Alphabet {
         alphabetArrayList.add(';');
         alphabetArrayList.add('!');
 
-
         return alphabetArrayList;
     }
 
@@ -39,14 +39,15 @@ public class Alphabet {
         return alphabetArrayList.size();
     }
 
-    public char get(int index){
+    public char get(int index) {
         return alphabetArrayList.get(index);
     }
 
-    public boolean contains (char symbol){
+    public boolean contains(char symbol) {
         return alphabetArrayList.contains(symbol);
     }
-    public int indexOf(char symbol){
+
+    public int indexOf(char symbol) {
         return alphabetArrayList.indexOf(symbol);
     }
 }

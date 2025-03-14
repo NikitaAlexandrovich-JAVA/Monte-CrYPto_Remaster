@@ -15,8 +15,6 @@ public abstract class EnDeCrypted {
         String resultText = "";
         String editableText = readTextFromFile(Path.of(pathRead));
 
-        if (editableText==null){return;}
-
         char symbol;
 
         for (int i = 0; i < editableText.length(); i++) {
@@ -41,7 +39,7 @@ public abstract class EnDeCrypted {
 
         try {
             String editableText = Files.readString(pathRead);
-            ;
+
             return editableText;
         } catch (Exception e) {
             System.out.println("\n" + Messages.ERROR_NOT_FILE + pathRead + "\n");

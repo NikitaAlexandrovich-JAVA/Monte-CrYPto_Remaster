@@ -21,6 +21,15 @@ public class Messages {
 
     public final static String ERROR_NOT_FILE = "ОШИБКА : <<отсутствует файл по указанному пути>> -> ";
 
+    public final static String ERROR_NOT_FILES = "ОШИБКА : <<отсутствуют файлы по указанному пути>> -> ";
+
+    public final static String ERROR_NOT_DIRECTORY = "ОШИБКА: <<отсутсвует директория>> -> ";
+
+    public final static String CHOICE_PATH_MESSAGE = """
+            \nВведи команду (цифру) нужного файла для %s:
+            
+            Наменование файла / Команда управления:\n
+            """;
 }
 
 
